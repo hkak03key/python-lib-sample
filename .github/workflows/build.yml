@@ -1,0 +1,41 @@
+# This GitHub action runs your tests for each commit push and/or PR. Optionally
+# you can turn it on using a cron schedule for regular testing.
+#
+name: Build
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+  push:
+    paths-ignore:
+      - 'README.md'
+  # For systems with an upstream API that could drift unexpectedly (like most SaaS systems, etc.),
+  # we recommend testing at a regular interval not necessarily tied to code changes. This will 
+  # ensure you are alerted to something breaking due to an API change, even if the code did not
+  # change.
+  # schedule:
+  #   - cron: '0 13 * * *'
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    # steps
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build
+        run: |
+          ./build.sh
+    # end of steps
+  # end of build
+# end of jobs
