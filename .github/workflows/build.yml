@@ -35,7 +35,7 @@ jobs:
 
       - name: Build
         run: |
-          ./build.sh
+          ./scripts/common/build.sh
     # end of steps
   # end of build
 # end of jobs

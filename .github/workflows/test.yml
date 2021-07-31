@@ -35,7 +35,7 @@ jobs:
 
       - name: Test
         run: |
-          ./test.sh
+          ./scripts/common/test.sh
     # end of steps
   # end of build
 # end of jobs
